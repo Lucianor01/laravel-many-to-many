@@ -17,7 +17,7 @@ class Project extends Model
         return Str::slug($title, '-');
     }
 
-    protected $fillable = ['title', 'description', 'slug', 'price', 'project_image', 'type_id'];
+    protected $fillable = ['title', 'description', 'slug', 'price', 'project_image'];
 
     public function type()
     {
