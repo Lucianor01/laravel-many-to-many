@@ -18,9 +18,11 @@
                     @if ($project->type)
                         <p class="card-text"><strong>Type:</strong> {{ $project->type->name }}</p>
                     @endif
-                    @foreach ($project->technologies as $item)
-                        <p class="card-text"><strong>Technologies:</strong> {{ $item->name }}</p>
-                    @endforeach
+                    @if ($project->technologies)
+                        @foreach ($project->technologies as $item)
+                            <p class="card-text"><strong>Technologies:</strong> {{ $item->name }}</p>
+                        @endforeach
+                    @endif
                 </div>
             </div>
         </div>
