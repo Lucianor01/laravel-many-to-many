@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateProjectRequest;
 use Illuminate\Http\Request;
 
 use App\Models\Admin\Project;
+use App\Models\Admin\Technology;
 use App\Models\Admin\Type;
 use Illuminate\Support\Facades\Storage;
 
@@ -35,7 +36,9 @@ class ProjectController extends Controller
 
         $types = Type::all();
 
-        return view('admin.project.create', compact('types'));
+        $technologies = Technology::all();
+
+        return view('admin.project.create', compact('types', 'technologies'));
     }
 
     /**
@@ -61,9 +64,14 @@ class ProjectController extends Controller
             $path = Storage::disk('public')->put('project_images', $request->project_image);
 
             $form_data['project_image'] = $path;
-        };
+        }
 
         $new_project = Project::create($form_data);
+
+        //? CONTROLLO CHECKED TECHNOLOGIES 
+        if ($request->has('technologies')) {
+            $new_project->technologies()->attach($request->technologies);
+        }
 
         return redirect()->route('admin.project.index');
     }
@@ -89,7 +97,9 @@ class ProjectController extends Controller
     {
         $types = Type::all();
 
-        return view('admin.project.edit', compact('project', 'types'));
+        $technologies = Technology::all();
+
+        return view('admin.project.edit', compact('project', 'types', 'technologies'));
     }
 
     /**

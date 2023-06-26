@@ -29,6 +29,9 @@
                                 <h4 class="card-title text-uppercase">{{ $item->title }}</h4>
                                 <p class="card-text"><strong>Description:</strong> {{ $item->description }}</p>
                                 <p class="card-text"><strong>Price:</strong> {{ $item->price }}&euro;</p>
+                                @if ($item->type)
+                                    <p class="card-text"><strong>Type:</strong> {{ $item->type->name }}</p>
+                                @endif
                                 <div class="d-flex mb-5 mt-3">
                                     <a class="m-auto btn btn-success"
                                         href="{{ route('admin.project.edit', $item) }}">Edit</a>
