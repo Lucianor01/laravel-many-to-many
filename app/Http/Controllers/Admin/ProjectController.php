@@ -112,6 +112,7 @@ class ProjectController extends Controller
     public function update(UpdateProjectRequest $request, Project $project)
     {
 
+        //dd($request->type_id);
         $form_data = $request->validated();
 
         // TRASFORMAZIONE TITOLO IN SLUG
@@ -132,11 +133,12 @@ class ProjectController extends Controller
             $form_data['project_image'] = $path;
         };
 
-        $project->update($form_data);
 
         if ($request->has('technologies')) {
             $project->technologies()->sync($request->technologies);
         }
+
+        $project->update($form_data);
 
         return redirect()->route('admin.project.index')->with('success', "Congratulations you have modified your project: " . "<span class='text-primary'>" . strtoupper($project->title) . "</span>");
     }
