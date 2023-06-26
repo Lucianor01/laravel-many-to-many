@@ -134,6 +134,10 @@ class ProjectController extends Controller
 
         $project->update($form_data);
 
+        if ($request->has('technologies')) {
+            $project->technologies()->sync($request->technologies);
+        }
+
         return redirect()->route('admin.project.index')->with('success', "Congratulations you have modified your project: " . "<span class='text-primary'>" . strtoupper($project->title) . "</span>");
     }
 

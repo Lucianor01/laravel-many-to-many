@@ -77,6 +77,28 @@
                 @enderror
             </div>
 
+            {{-- ? TECHNOLOGIES CHECKBOX --}}
+            <div class="mb-3 mt-4">
+                <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                    @foreach ($technologies as $item)
+                        @if ($errors->any())
+                            <input type="checkbox" class="btn-check" name="technologies[]" value="{{ $item->id }}"
+                                id="project-checkbox-{{ $item->id }}"
+                                {{ in_array($item->id, old('technologies', [])) ? 'checked' : '' }}>
+                        @else
+                            <input type="checkbox" class="btn-check" name="technologies[]" value="{{ $item->id }}"
+                                id="project-checkbox-{{ $item->id }}"
+                                {{ $project->technologies->contains($item) ? 'checked' : '' }}>
+                        @endif
+                        <label class="btn btn-outline-primary"
+                            for="project-checkbox-{{ $item->id }}">{{ $item->name }}</label>
+                    @endforeach
+                </div>
+                @error('technologies')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+            </div>
+
             <button type="submit" class="btn btn-success">Confirm Edit</button>
         </form>
     </div>
